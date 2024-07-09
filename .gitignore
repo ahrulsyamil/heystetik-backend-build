@@ -1,0 +1,15 @@
+# compiled output
+/node_modules
+
+# Config
+/config/config.yaml
+package-lock.json
+yarn.lock
+.env
+
+/uploads
+# Sentry Auth Token
+.sentryclirc
+
+.zip
+.rar
