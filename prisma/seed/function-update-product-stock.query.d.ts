@@ -1,0 +1,1 @@
+export declare const functionUpdateProductStockQuerySql = "\nCREATE OR REPLACE FUNCTION update_product_stock()\nRETURNS TRIGGER AS $$\nBEGIN\n  UPDATE product\n  SET product_stock = product_stock - NEW.qty\n  WHERE id = NEW.product_id;\n\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n";

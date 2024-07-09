@@ -1,0 +1,37 @@
+import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit } from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
+import { MediaService } from 'src/media/media.service';
+import { ChatService } from 'src/chat/chat.service';
+import { TLogging } from 'src/chat/types/logging.type';
+import { JoinRoomDto } from 'src/chat/dto/join-room.dto';
+import { LeaveRoomDto } from 'src/chat/dto/leave-room.dto';
+import { SendMessageDto } from 'src/chat/dto/send-message.dto';
+import { TypingDto } from 'src/chat/dto/typing.dto';
+import { ReadMessageDto } from 'src/chat/dto/read-message.dto';
+import { SocketService } from './socket.service';
+import { Queue } from 'bull';
+import { NotificationService } from 'src/notification/notification.service';
+export declare class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+    private readonly socketService;
+    private readonly chatService;
+    private readonly mediaService;
+    private queueFcm;
+    private readonly notificationService;
+    private logger;
+    server: Server;
+    constructor(socketService: SocketService, chatService: ChatService, mediaService: MediaService, queueFcm: Queue, notificationService: NotificationService);
+    afterInit(): Promise<void>;
+    handleConnection(socket: Socket): Promise<void>;
+    handleDisconnect(socket: Socket): Promise<void>;
+    broadcastOnlineClients(): Promise<void>;
+    loggingClient(clientId: string, response: TLogging): void;
+    recentChat(clientId: string, response: any): Promise<void>;
+    validateDto(socket: Socket, dto: any, payload: any, event?: string): Promise<boolean>;
+    handleJoinRoom(socket: Socket, payload: JoinRoomDto): Promise<void>;
+    handleLeaveRoom(socket: Socket, payload: LeaveRoomDto): Promise<void>;
+    listenForMessages(socket: Socket, payload: SendMessageDto): Promise<void>;
+    handleTyping(socket: Socket, payload: TypingDto): Promise<void>;
+    handleReadMessage(socket: Socket, payload: ReadMessageDto): Promise<void>;
+    consultationDoctorSchedule(clientId: string, response: any): Promise<void>;
+    emitListenApp(clientId: string, response: TLogging): void;
+}

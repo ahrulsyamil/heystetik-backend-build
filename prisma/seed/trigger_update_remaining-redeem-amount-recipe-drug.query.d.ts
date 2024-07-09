@@ -1,0 +1,1 @@
+export declare const triggerUpdateRemainingRedeemAmountRecipeDrugQuerySql = "\nCREATE TRIGGER trigger_update_remaining_redeem_amount_recipe_drug\nAFTER INSERT ON transaction_product_item\nFOR EACH ROW\nEXECUTE FUNCTION update_remaining_redeem_amount_recipe_drug();\n";

@@ -1,0 +1,1 @@
+export declare const triggerUpdateProductStockQuerySql = "\nCREATE TRIGGER trigger_update_product_stock\nAFTER INSERT ON transaction_product_item\nFOR EACH ROW\nEXECUTE FUNCTION update_product_stock();\n";

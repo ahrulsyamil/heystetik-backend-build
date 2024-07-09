@@ -1,0 +1,31 @@
+import { Queue } from 'bull';
+import { UserService } from 'src/auth/user/user.service';
+import { NotificationService } from 'src/notification/notification.service';
+import { StreamService } from 'src/stream/stream.service';
+import { UserEntity } from 'src/users/entities/user.entity';
+import { CreateStreamCommentReplyDto } from './dto/create-stream-comment-reply.dto';
+import { CreateStreamCommentDto } from './dto/create-stream-comment.dto';
+import { LikeUnlikeStreamCommentReplyDto } from './dto/like-unlike-stream-comment-reply.dto';
+import { LikeUnlikeStreamCommentDto } from './dto/like-unlike-stream-comment.dto';
+import { PageOptionsCommentReplyDto } from './dto/page-options-comment-reply.dto';
+import { PageOptionsCommentDto } from './dto/page-options-comment.dto';
+import { StreamCommentService } from './stream-comment.service';
+export declare class StreamCommentController {
+    private readonly streamCommentService;
+    private readonly streamService;
+    private readonly notificationService;
+    private readonly userService;
+    private queueFcm;
+    constructor(streamCommentService: StreamCommentService, streamService: StreamService, notificationService: NotificationService, userService: UserService, queueFcm: Queue);
+    isInCircle(streamer_id: number, user_id: number): Promise<boolean>;
+    findAll(user: UserEntity, id: number, pageOptions: PageOptionsCommentDto): Promise<any>;
+    findAllReply(user: UserEntity, id: number, comment_id: number, pageOptions: PageOptionsCommentReplyDto): Promise<any>;
+    create(user: UserEntity, data: CreateStreamCommentDto, id: number): Promise<import(".prisma/client").stream_comment>;
+    createReply(user: UserEntity, data: CreateStreamCommentReplyDto, id: number, comment_id: number): Promise<import(".prisma/client").stream_comment_reply>;
+    delete(user: UserEntity, id: number, comment_id: number): Promise<import(".prisma/client").stream_comment>;
+    deleteReply(user: UserEntity, id: number, comment_id: number, comment_reply_id: number): Promise<import(".prisma/client").stream_comment_reply>;
+    likeComment(user: UserEntity, data: LikeUnlikeStreamCommentDto, id: number, comment_id: number): Promise<import(".prisma/client").stream_comment_like>;
+    unlikeComment(user: UserEntity, data: LikeUnlikeStreamCommentDto, id: number, comment_id: number): Promise<import(".prisma/client").stream_comment_like>;
+    likeCommentReply(user: UserEntity, data: LikeUnlikeStreamCommentReplyDto, id: number, commentId: number, commentReplyId: number): Promise<import(".prisma/client").stream_comment_reply_like>;
+    unlikeCommentReply(user: UserEntity, data: LikeUnlikeStreamCommentReplyDto, id: number, commentId: number, commentReplyId: number): Promise<import(".prisma/client").stream_comment_reply_like>;
+}

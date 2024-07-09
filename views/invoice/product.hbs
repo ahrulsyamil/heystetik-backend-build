@@ -1,0 +1,161 @@
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Invoice</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <style>
+      @media print { @page { size: A4; margin: 0; padding: 0; } html, body {
+      width: 210mm; height: 282mm; font-size: 12px; background: #FFF; overflow:
+      visible; } body { -webkit-print-color-adjust: exact; } table tr td {
+      font-size: 12px } .bg-gray-200 { back-color: #E5E7EB !important; } }
+    </style>
+    <script src='{{base_url}}/js/tailwindcss-3.4.1.js'></script>
+  </head>
+  <body class='bg-white'>
+    <img
+      src='{{base_url}}/images/paid-off-stamp.svg'
+      class='w-[80%] h-auto absolute left-[80px] top-[200px] -z-1'
+    />
+    <div class='flex flex-col'>
+      <div class='px-16'>
+        <div class='py-10 flex flex-row justify-between items-center'>
+          <img src='{{base_url}}/images/logo.png' class='w-[25%]' />
+          <div class='flex flex-col items-end'>
+            <p class='font-bold text-2xl'>INVOICE</p>
+            <p
+              class='font-semibold text-lg text-[#3FB2AC]'
+            >{{invoice_number}}</p>
+          </div>
+        </div>
+        <div class='flex flex-row gap-6'>
+          <div class='flex-1'>
+            <p class='font-bold text-lg'>DITERBITKAN ATAS NAMA</p>
+            <p>Penjual &emsp;:
+              <span class='font-bold'>{{shipper_name}}</span></p>
+          </div>
+          <div class='flex-1'>
+            <p class='font-bold text-lg'>UNTUK</p>
+            <table cellpadding='2'>
+              <thead>
+                <tr>
+                  <th width='35%'></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pembeli</td>
+                  <td>:</td>
+                  <td class='font-bold'>{{customer_name}}</td>
+                </tr>
+                <tr>
+                  <td>Tanggal Pembelian</td>
+                  <td>:</td>
+                  <td class='font-bold'>{{transaction_date}}</td>
+                </tr>
+                <tr class='align-top'>
+                  <td>Alamat Pengiriman</td>
+                  <td>:</td>
+                  <td>{{customer_address}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class='mt-8'>
+          <hr class='border-t-2' />
+          <div class='flex flex-row my-4 font-bold text-lg px-4'>
+            <div class='basis-5/12'>
+              <p>INFO PRODUK</p>
+            </div>
+            <div class='basis-1/12 text-right'>
+              <p>JUMLAH</p>
+            </div>
+            <div class='basis-3/12 text-right'>
+              <p>HARGA SATUAN</p>
+            </div>
+            <div class='basis-3/12 text-right'>
+              <p>TOTAL</p>
+            </div>
+          </div>
+          <hr class='border-t-2' />
+          {{#each product_invoice_items}}
+            <div class='flex flex-row my-4 text-lg px-4'>
+              <div class='basis-5/12'>
+                <p class='text-[#3FB2AC] font-semibold'>{{product_name}}</p>
+                <p class='text-sm text-gray-500'>Berat:
+                  {{product_weight}}{{product_weight_type}}</p>
+              </div>
+              <div class='basis-1/12 text-right'>
+                <p>{{qty}}</p>
+              </div>
+              <div class='basis-3/12 text-right'>
+                <p>{{price}}</p>
+              </div>
+              <div class='basis-3/12 text-right'>
+                <p>{{total_price}}</p>
+              </div>
+            </div>
+            <hr />
+          {{/each}}
+        </div>
+        <div class='flex justify-end mt-4 px-4'>
+          <table width='50%'>
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='font-bold'>TOTAL HARGA ({{total_product}}
+                  BARANG)</td>
+                <td class='text-right'>{{total_price}}</td>
+              </tr>
+              <tr>
+                <td>Total Ongkos Kirim</td>
+                <td class='text-right'>{{delivery_fee}}</td>
+              </tr>
+              <tr>
+                <td>Biaya Pembayaran</td>
+                <td class='text-right'>{{transaction_fee}}</td>
+              </tr>
+              <tr>
+                <td>{{discount_title}}</td>
+                <td class='text-right'>-{{total_discount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class='flex flex-row justify-end bg-gray-200 py-4 my-4 px-4'>
+          <table width='50%'>
+            <tr>
+              <td class='font-bold'>TOTAL TAGIHAN</td>
+              <td class='text-right'>{{total_paid}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class='flex flex-row'>
+          <div class='flex-1'>
+            <p>Pengirim:</p>
+            <p class='font-bold'>{{shipping_method}}</p>
+          </div>
+          <div class='flex-1'>
+            <p>Metode Pembayaran:</p>
+            <p class='font-bold'>{{payment_method}}</p>
+          </div>
+        </div>
+        <p class='mt-16'><i>Invoice ini sah dan diproses oleh komputer. Terakhir
+            diupdate
+            {{invoice_date}}
+            pukul
+            {{invoice_time}}
+            WIB</i></p>
+        <center class='my-12'>Butuh bantuan? Hubungi kami di
+          <span class='text-[#3FB2AC]'>info@heystetik.com</span></center>
+      </div>
+    </div>
+  </body>
+</html>

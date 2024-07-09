@@ -1,0 +1,82 @@
+<html>
+
+<head>
+   <meta charset='utf-8' />
+   <title>Medical Prescription</title>
+   <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+   <style>
+      @media print {
+         @page {
+            size: A4;
+            margin: 0;
+            padding: 0;
+         }
+
+         html,
+         body {
+            width: 210mm;
+            height: 282mm;
+            font-size: 12px;
+            background: #FFF;
+            overflow:
+               visible;
+         }
+
+         body {
+            -webkit-print-color-adjust: exact;
+         }
+
+         table tr td {
+            font-size: 12px
+         }
+
+         .bg-gray-200 {
+            back-color: #E5E7EB !important;
+         }
+      }
+   </style>
+   <script src='{{base_url}}/js/tailwindcss-3.4.1.js'></script>
+</head>
+
+<body class='bg-white'>
+   <div class='flex flex-col'>
+      <div class='px-16'>
+         <div class='py-10 flex flex-row'>
+            <div class="flex-grow">
+               <img src='{{base_url}}/images/logo.png' class='w-[40%] my-6' />
+               <p>{{consultation_date}}</p>
+            </div>
+            <div class="w-[40%] flex flex-col justify-between pt-10">
+               <p class="font-bold">{{ doctor_name }}</p>
+               <p>SIP {{ doctor_sip }}</p>
+            </div>
+         </div>
+      </div>
+      <hr class='border-t-2' />
+      <div class="flex flex-col gap-3 text-center py-8">
+         <p class="font-bold text-2xl">Resep Digital</p>
+         <p class="text-gray-500 text-sm">Jika kamu mengalami gejala berat atau tidak membaik, kunjungi fasilitas
+            kesehatan
+            terdekat.</p>
+         <p>Nama pasien: {{ customer_name }} <span class="text-gray-500">{{ customer_detail }}</span></p>
+      </div>
+      <hr class='border-t-2' />
+      <div class='px-16'>
+         {{#each prescriptions}}
+         <div class="flex flex-row justify-between my-4">
+            <div>
+               <p>{{ name }}</p>
+               <p class="text-xs">{{ note }}</p>
+            </div>
+            <div>
+               <p class="text-gray-500">{{ qty }} {{ packaging }}</p>
+            </div>
+         </div>
+         <hr class='border-t-1' />
+         {{/each}}
+      </div>
+      <center class='mt-20'>Resep digital ini hanya dapat ditebus melalui aplikasi Heystetik</center>
+   </div>
+</body>
+
+</html>
